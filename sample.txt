@@ -1,0 +1,4 @@
+Multithreading in Python is fun and powerful.
+Python allows multiple threads to run.
+Threads can run concurrently and do many tasks.
+Fun with threads and Python is amazing.
