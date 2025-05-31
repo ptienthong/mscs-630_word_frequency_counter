@@ -1,6 +1,8 @@
+import argparse
 import threading
 from collections import Counter
 import re
+import sys
 
 # Global counter and lock
 word_counter = Counter()
@@ -14,8 +16,14 @@ def count_words(text_segment):
     with lock:
         word_counter.update(local_counter)
 
-def main():
-    file_name = 'sample.txt'
+def main(argv=sys.argv[1:]):
+
+    parser = argparse.ArgumentParser(description="Count words in a text file using multithreading.")
+    parser.add_argument('--file', type=str, help='Path to the text file to be processed', default='sample.txt')
+    parser.add_argument('--threads', type=int, help='Number of threads to use for counting', default=4)
+
+    args = parser.parse_args(argv)
+    file_name = args.file
     try:
         with open(file_name, 'r') as file:
             text = file.read()
@@ -27,7 +35,7 @@ def main():
         return
 
     # Count words in the text
-    num_threads = 8
+    num_threads = args.threads
     words = re.findall(r'\b\w+\b', text)
     total_words = len(words)
     chunk_size = (total_words + num_threads - 1) // num_threads
