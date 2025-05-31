@@ -27,7 +27,7 @@ def main():
         return
 
     # Count words in the text
-    num_threads = 4
+    num_threads = 8
     words = re.findall(r'\b\w+\b', text)
     total_words = len(words)
     chunk_size = (total_words + num_threads - 1) // num_threads
